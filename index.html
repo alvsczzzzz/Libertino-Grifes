@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Libertino Grifes - Streetwear & Perfumes Premium</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #fff;
+      padding: 15px 0;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s;
+    }
+    header.scrolled {
+      background-color: #f5f5f5;
+    }
+    header .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 30px;
+    }
+    header h1 {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      color: #333;
+      line-height: 1;
+    }
+    .search-bar {
+      flex-grow: 1;
+      text-align: center;
+    }
+    .search-bar input {
+      width: 350px;
+      padding: 8px 15px;
+      border: none;
+      border-bottom: 1px solid #e67e22;
+      background-color: transparent;
+      color: #333;
+      font-size: 0.9rem;
+      font-weight: 300;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .search-bar input:focus {
+      border-bottom: 1px solid #d35400;
+    }
+    .cart-icon {
+      font-size: 1.2rem;
+      color: #333;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .cart-icon:hover {
+      color: #e67e22;
+    }
+    nav {
+      background-color: #fff;
+      padding: 10px 0;
+      text-align: center;
+      margin-top: 80px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      transition: background-color 0.3s;
+    }
+    nav.scrolled {
+      background-color: #f5f5f5;
+    }
+    nav a {
+      color: #333;
+      text-decoration: none;
+      margin: 0 25px;
+      font-size: 0.85rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #e67e22;
+    }
+    .hero-section {
+      height: 600px;
+      margin-top: 100px;
+      position: relative;
+      overflow: hidden;
+      background-color: #f9f9f9;
+    }
+    .carousel {
+      height: 100%;
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    .carousel-slide {
+      min-width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(0.9);
+    }
+    .carousel-slide::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to right, rgba(249, 249, 249, 0.6) 0%, rgba(249, 249, 249, 0) 10%, rgba(249, 249, 249, 0) 90%, rgba(249, 249, 249, 0.6) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .carousel-content {
+      position: absolute;
+      text-align: center;
+      z-index: 2;
+    }
+    .carousel-slide h2 {
+      font-size: 3rem;
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 5px;
+      color: #fff;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    .carousel-slide p {
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: #fff;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.3);
+      color: #fff;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 1.5rem;
+      transition: opacity 0.3s;
+      z-index: 3;
+    }
+    .carousel-btn:hover {
+      opacity: 0.8;
+    }
+    .carousel-btn.prev {
+      left: 50px;
+    }
+    .carousel-btn.next {
+      right: 50px;
+    }
+    .section-title {
+      max-width: 1400px;
+      margin: 40px auto;
+      padding: 0 30px;
+      font-size: 1.5rem;
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #e67e22;
+    }
+    .filters {
+      max-width: 1400px;
+      margin: 20px auto;
+      padding: 0 30px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 15px;
+    }
+    .filters select {
+      padding: 5px 10px;
+      border: 1px solid #ddd;
+      background-color: #fff;
+      color: #333;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      border-radius: 3px;
+      transition: border-color 0.3s;
+    }
+    .filters select:hover {
+      border-color: #e67e22;
+    }
+    .products, .perfumes, .promotions {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 25px;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .product, .perfume, .promotion {
+      background-color: #fff;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      border-radius: 5px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .product:hover, .perfume:hover, .promotion:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 10px rgba(230, 126, 34, 0.1);
+    }
+    .product-placeholder, .perfume-placeholder, .promotion-placeholder {
+      height: 250px;
+      background-color: #f0f0f0;
+      margin-bottom: 10px;
+      border-radius: 3px;
+      transition: background-color 0.3s;
+    }
+    .product:hover .product-placeholder,
+    .perfume:hover .perfume-placeholder,
+    .promotion:hover .promotion-placeholder {
+      background-color: #e0e0e0;
+    }
+    .product h3, .perfume h3, .promotion h3 {
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: #333;
+      margin: 5px 0;
+      text-transform: uppercase;
+    }
+    .product p, .perfume p, .promotion p {
+      font-size: 0.9rem;
+      color: #e67e22;
+      margin: 5px 0;
+    }
+    .stars {
+      font-size: 0.8rem;
+      color: #e67e22;
+    }
+    .perfume .notes {
+      font-size: 0.8rem;
+      color: #666;
+      font-style: italic;
+    }
+    .promotion .discount {
+      font-size: 0.9rem;
+      color: #e74c3c;
+      font-weight: bold;
+    }
+    .add-to-cart {
+      background-color: #e67e22;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      border-radius: 3px;
+      transition: background-color 0.3s;
+    }
+    .add-to-cart:hover {
+      background-color: #d35400;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background-color: #fff;
+      padding: 20px;
+      max-width: 500px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    .modal-content .placeholder {
+      height: 300px;
+      background-color: #f0f0f0;
+      margin-bottom: 15px;
+      border-radius: 3px;
+    }
+    .modal-content h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .modal-content p {
+      margin: 5px 0;
+      color: #666;
+    }
+    .close-modal {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1.5rem;
+      color: #333;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .close-modal:hover {
+      color: #e67e22;
+    }
+    .cart {
+      display: none;
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      max-height: 300px;
+      overflow-y: auto;
+      color: #333;
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .cart-item button {
+      background-color: #e74c3c;
+      color: #fff;
+      border: none;
+      padding: 2px 5px;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+    footer {
+      background-color: #fff;
+      text-align: center;
+      padding: 30px 0;
+      margin-top: 50px;
+      border-top: 1px solid #ddd;
+      color: #666;
+    }
+    footer p {
+      font-size: 0.8rem;
+      font-weight: 300;
+      letter-spacing: 1px;
+    }
+    .hidden {
+      display: none;
+    }
+    @media (max-width: 768px) {
+      .search-bar input {
+        width: 200px;
+      }
+      nav a {
+        margin: 0 10px;
+        font-size: 0.75rem;
+      }
+      .hero-section {
+        height: 400px;
+      }
+      .carousel-slide h2 {
+        font-size: 2rem;
+      }
+      .products, .perfumes, .promotions {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+      .modal-content {
+        max-width: 90%;
+      }
+      header h1 {
+        font-size: 2rem;
+      }
+      .carousel-btn.prev {
+        left: 20px;
+      }
+      .carousel-btn.next {
+        right: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Libertino</h1>
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Pesquisar">
+      </div>
+      <i class="fas fa-shopping-cart cart-icon" id="cartIcon"></i>
+    </div>
+  </header>
+  <nav>
+    <a href="tenis.html">Tênis</a>
+    <a href="calcas.html">Calças</a>
+    <a href="dichavadores.html">Dichavadores</a>
+    <a href="isqueiros.html">Isqueiros</a>
+    <a href="cuecas.html">Cuecas</a>
+    <a href="meias.html">Meias</a>
+    <a href="luvas.html">Luvas</a>
+    <a href="toucas.html">Toucas</a>
+    <a href="perfumes.html">Perfumes</a>
+    <a href="promotions.html">Promoções</a>
+  </nav>
+  <div class="hero-section">
+    <div class="carousel">
+      <div class="carousel-slide">
+        <img src="public/hero-banner.png" alt="Streetwear 2025 Banner">
+        <div class="carousel-content">
+          <h2>Streetwear 2025</h2>
+          <p>Exclusividade e Estilo Urbano</p>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <img src="public/hero-banner-2.png" alt="Coleção Premium Banner">
+        <div class="carousel-content">
+          <h2>Coleção Premium</h2>
+          <p>Descubra o Novo</p>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <img src="public/hero-banner-3.png" alt="Perfumes Exclusivos Banner">
+        <div class="carousel-content">
+          <h2>Perfumes Exclusivos</h2>
+          <p>Sensação em Cada Gota</p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-btn prev" onclick="moveCarousel(-1)"><i class="fas fa-chevron-left"></i></button>
+    <button class="carousel-btn next" onclick="moveCarousel(1)"><i class="fas fa-chevron-right"></i></button>
+  </div>
+  <div class="section-title">Produtos em Destaque</div>
+  <div class="filters">
+    <select id="sortFilter">
+      <option value="relevance">Relevância</option>
+      <option value="stars">Estrelas</option>
+      <option value="price">Preço</option>
+    </select>
+    <select id="categoryFilter">
+      <option value="all">Todas Categorias</option>
+      <option value="tenis">Tênis</option>
+      <option value="calcas">Calças</option>
+      <option value="dichavadores">Dichavadores</option>
+      <option value="isqueiros">Isqueiros</option>
+      <option value="cuecas">Cuecas</option>
+      <option value="meias">Meias</option>
+      <option value="luvas">Luvas</option>
+      <option value="toucas">Toucas</option>
+      <option value="perfumes">Perfumes</option>
+    </select>
+  </div>
+  <div id="productContainer" class="products">
+    <div class="product" data-category="tenis" data-name="Tênis Nike Air Max Excee" data-stars="4.5" data-price="299.90">
+      <div class="product-placeholder"></div>
+      <h3>Tênis Nike Air Max Excee</h3>
+      <p>R$ 299,90</p>
+      <div class="stars">★★★★☆</div>
+      <button class="add-to-cart" onclick="addToCart('Tênis Nike Air Max Excee', 299.90)">Adicionar</button>
+    </div>
+    <div class="product" data-category="tenis" data-name="Tênis Adidas Superstar" data-stars="4.0" data-price="249.90">
+      <div class="product-placeholder"></div>
+      <h3>Tênis Adidas Superstar</h3>
+      <p>R$ 249,90</p>
+      <div class="stars">★★★★☆</div>
+      <button class="add-to-cart" onclick="addToCart('Tênis Adidas Superstar', 249.90)">Adicionar</button>
+    </div>
+    <div class="product" data-category="tenis" data-name="Tênis Puma RS-X" data-stars="4.3" data-price="279.90">
+      <div class="product-placeholder"></div>
+      <h3>Tênis Puma RS-X</h3>
+      <p>R$ 279,90</p>
+      <div class="stars">★★★★☆</div>
+      <button class="add-to-cart" onclick="addToCart('Tênis Puma RS-X', 279.90)">Adicionar</button>
+    </div>
+    <div class="product" data-category="tenis" data-name="Tênis New Balance 574" data-stars="4.1" data-price="259.90">
+      <div class="product-placeholder"></div>
+      <h3>Tênis New Balance 574</h3>
+      <p>R$ 259,90</p>
+      <div class="stars">★★★★☆</div>
+      <button class="add-to-cart" onclick="addToCart('Tênis New Balance 574', 259.90)">Adicionar</button>
+    </div>
+    <div class="product" data-category="calcas" data-name="Calça Nike Dri-FIT" data-stars="4.2" data-price="199.90">
+      <div class="product-placeholder"></div>
+      <h3>Calça Nike Dri-FIT</h3>
+      <p>R$ 199,90</p>
+      <div class="stars">★★★★☆</div>
+      <button class="add-to-cart" onclick="addToCart('Calça Nike Dri-FIT', 199.90)">Adicionar</button>
+    </div>
+    <div class="product" data-category="calcas" data-name="Calça Adidas Track Pants" data-stars="4.1" data-price="179.90">
+      <div class="product-placeholder"></div>
+      <h3>Calça Adidas Track Pants</h3>
+      <p>R$ 179,90</p>
+      <div class="stars">★★★★☆</div>
+      <button class="add-to-cart" onclick="addToCart('Calça Adidas Track Pants', 179.90)">Adicionar</button>
+    </div>
+    <div class="product" data-category="calcas" data-name="Calça Puma Slim" data-stars="4.0" data-price="189.90">
+      <div class="product-placeholder"></div>
+      <h3>Calça Puma Slim</h3>
+      <p>R$ 189,90</p>
+      <div class="stars">★★★★☆</div>
+      <button class="add-to-cart" onclick="addToCart('Calça Puma Slim', 189.90)">Adicionar</button>
+    </div>
+    <div class="product" data-category="dichavadores" data-name="Dichavador Personalizado" data-stars="4.0" data-price="49.90">
+      <div class="product-placeholder"></div>
+      <h3>Dichavador Personalizado</h3>
+      <p>R$ 49,90</p>
+      <div class="stars">★★★★☆</div>
+      <button class="add-to-cart" onclick="addToCart('Dichavador Personalizado', 49.90)">Adicionar</button>
+    </div>
+    <div class="product" data-category="dichavadores" data-name="Dichavador Premium" data-stars="4.2" data-price="59.90">
+      <div class="product-placeholder"></div>
+      <h3>Dichavador Premium</h3>
+      <p>R$ 59,90</p>
+      <div class="stars">★★★★☆</div>
+      <button class="add-to-cart" onclick="addToCart('Dichavador Premium', 59.90)">Adicionar</button>
+    </div>
+    <div class="product" data-category="isqueiros" data-name="Isqueiro Personalizado" data-stars="3.8" data-price="29.90">
+      <div class="product-placeholder"></div>
+      <h3>Isqueiro Personalizado</h3>
+      <p>R$ 29,90</p>
+      <div class="stars">★★★☆☆</div>
+      <button class="add-to-cart" onclick="addToCart('Isqueiro Personalizado', 29.90)">Adicionar</button>
+    </div>
+    <div class="product" data-category="isqueiros" data-name="Isqueiro Luxo" data-stars="4.0" data-price="39.90">
+      <div class="product-placeholder"></div>
+      <h3>Isqueiro Luxo</h3>
+      <p>R$ 39,90</p>
+      <div class="stars">★★★★☆</div>
+      <button class="add-to-cart" onclick="addToCart('Isqueiro Luxo', 39.90)">Adicionar</button>
+    </div>
+    <div class="product" data-category="cuecas" data-name="Cueca Nike Dri-FIT" data-stars="4.3" data-price="39.90">
+      <div class="product-placeholder"></div>
+      <h3>Cueca Nike Dri-FIT</h3>
+      <p>R$ 39,90</p>
+      <div class="stars">★★★★☆</div>
+      <button class="add-to-cart" onclick="addToCart('Cueca Nike Dri-FIT', 39.90)">Adicionar</button>
+    </div>
+    <div class="product" data-category="cuecas" data-name="Cueca Adidas Comfort" data-stars="4.1" data-price="34.90">
+      <div class="product-placeholder"></div>
+      <h3>Cueca Adidas Comfort</h3>
+      <p>R$ 34,90</p>
+      <div class="stars">★★★★☆</div>
+      <button class="add-to-cart" onclick="addToCart('Cueca Adidas Comfort', 34.90)">Adicionar</button>
+    </div>
+    <div class="product" data-category="meias" data-name="Meia Adidas Crew" data-stars="4.0" data-price="19.90">
+      <div class="product-placeholder"></div>
+      <h3>Meia Adidas Crew</h3>
+      <p>R$ 19,90</p>
+      <div class="stars">★★★★☆</div>
+      <button class="add-to-cart" onclick="addToCart('Meia Adidas Crew', 19.90)">Adicionar</button>
+    </div>
+    <div class="product" data-category="meias" data-name="Meia Nike Elite" data-stars="4.2" data-price="22.90">
+      <div class="product-placeholder"></div>
+      <h3>Meia Nike Elite</h3>
+      <p>R$ 22,90</p>
+      <div class="stars">★★★★☆</div>
+      <button class="add-to-cart" onclick="addToCart('Meia Nike Elite', 22.90)">Adicionar</button>
+    </div>
+    <div class="product" data-category="luvas" data-name="Luva Nike Gym" data-stars="4.1" data-price="59.90">
+      <div class="product-placeholder"></div>
+      <h3>Luva Nike Gym</h3>
+      <p>R$ 59,90</p>
+      <div class="stars">★★★★☆</div>
+      <button class="add-to-cart" onclick="addToCart('Luva Nike Gym', 59.90)">Adicionar</button>
+    </div>
+    <div class="product" data-category="luvas" data-name="Luva Puma Training" data-stars="4.0" data-price="54.90">
+      <div class="product-placeholder"></div>
+      <h3>Luva Puma Training</h3>
+      <p>R$ 54,90</p>
+      <div class="stars">★★★★☆</div>
+      <button class="add-to-cart" onclick="addToCart('Luva Puma Training', 54.90)">Adicionar</button>
+    </div>
+    <div class="product" data-category="toucas" data-name="Touca Adidas Beanie" data-stars="4.2" data-price="49.90">
+      <div class="product-placeholder"></div>
+      <h3>Touca Adidas Beanie</h3>
+      <p>R$ 49,90</p>
+      <div class="stars">★★★★☆</div>
+      <button class="add-to-cart" onclick="addToCart('Touca Adidas Beanie', 49.90)">Adicionar</button>
+    </div>
+    <div class="product" data-category="toucas" data-name="Touca Nike Winter" data-stars="4.1" data-price="45.90">
+      <div class="product-placeholder"></div>
+      <h3>Touca Nike Winter</h3>
+      <p>R$ 45,90</p>
+      <div class="stars">★★★★☆</div>
+      <button class="add-to-cart" onclick="addToCart('Touca Nike Winter', 45.90)">Adicionar</button>
+    </div>
+  </div>
+  <div class="section-title">Perfumes Exclusivos</div>
+  <div class="perfumes">
+    <div class="perfume" data-category="perfumes" data-name="Urban Flame" data-stars="4.7" data-price="99.90">
+      <div class="perfume-placeholder"></div>
+      <h3>Urban Flame</h3>
+      <p>R$ 99,90</p>
+      <div class="notes">Notas: Laranja, Âmbar, Musk | 100ml | 8h</div>
+      <div class="stars">★★★★★</div>
+      <button class="add-to-cart" onclick="addToCart('Urban Flame', 99.90)">Adicionar</button>
+    </div>
+    <div class="perfume" data-category="perfumes" data-name="Night Pulse" data-stars="4.5" data-price="89.90">
+      <div class="perfume-placeholder"></div>
+      <h3>Night Pulse</h3>
+      <p>R$ 89,90</p>
+      <div class="notes">Notas: Bergamota, Baunilha, Sândalo | 80ml | 7h</div>
+      <div class="stars">★★★★☆</div>
+      <button class="add-to-cart" onclick="addToCart('Night Pulse', 89.90)">Adicionar</button>
+    </div>
+    <div class="perfume" data-category="perfumes" data-name="Street Glow" data-stars="4.6" data-price="109.90">
+      <div class="perfume-placeholder"></div>
+      <h3>Street Glow</h3>
+      <p>R$ 109,90</p>
+      <div class="notes">Notas: Pimenta, Ylang-Ylang, Cedro | 120ml | 9h</div>
+      <div class="stars">★★★★★</div>
+      <button class="add-to-cart" onclick="addToCart('Street Glow', 109.90)">Adicionar</button>
+    </div>
+    <div class="perfume" data-category="perfumes" data-name="Midnight Rush" data-stars="4.4" data-price="95.90">
+      <div class="perfume-placeholder"></div>
+      <h3>Midnight Rush</h3>
+      <p>R$ 95,90</p>
+      <div class="notes">Notas: Jasmim, Patchouli, Couro | 90ml | 7.5h</div>
+      <div class="stars">★★★★☆</div>
+      <button class="add-to-cart" onclick="addToCart('Midnight Rush', 95.90)">Adicionar</button>
+    </div>
+    <div class="perfume" data-category="perfumes" data-name="Dawn Breeze" data-stars="4.5" data-price="104.90">
+      <div class="perfume-placeholder"></div>
+      <h3>Dawn Breeze</h3>
+      <p>R$ 104,90</p>
+      <div class="notes">Notas: Limão, Lavanda, Cedro | 110ml | 8h</div>
+      <div class="stars">★★★★☆</div>
+      <button class="add-to-cart" onclick="addToCart('Dawn Breeze', 104.90)">Adicionar</button>
+    </div>
+  </div>
+  <div class="section-title">Promoções</div>
+  <div class="promotions">
+    <div class="promotion" data-category="promotions" data-name="Tênis Nike Air Max Excee" data-stars="4.5" data-price="249.90" data-original-price="299.90">
+      <div class="promotion-placeholder"></div>
+      <h3>Tênis Nike Air Max Excee</h3>
+      <p><s>R$ 299,90</s> <span class="discount">R$ 249,90</span></p>
+      <div class="stars">★★★★☆</div>
+      <button class="add-to-cart" onclick="addToCart('Tênis Nike Air Max Excee (Promo)', 249.90)">Adicionar</button>
+    </div>
+    <div class="promotion" data-category="promotions" data-name="Calça Adidas Track Pants" data-stars="4.1" data-price="149.90" data-original-price="179.90">
+      <div class="promotion-placeholder"></div>
+      <h3>Calça Adidas Track Pants</h3>
+      <p><s>R$ 179,90</s> <span class="discount">R$ 149,90</span></p>
+      <div class="stars">★★★★☆</div>
+      <button class="add-to-cart" onclick="addToCart('Calça Adidas Track Pants (Promo)', 149.90)">Adicionar</button>
+    </div>
+    <div class="promotion" data-category="promotions" data-name="Tênis Puma RS-X" data-stars="4.3" data-price="229.90" data-original-price="279.90">
+      <div class="promotion-placeholder"></div>
+      <h3>Tênis Puma RS-X</h3>
+      <p><s>R$ 279,90</s> <span class="discount">R$ 229,90</span></p>
+      <div class="stars">★★★★☆</div>
+      <button class="add-to-cart" onclick="addToCart('Tênis Puma RS-X (Promo)', 229.90)">Adicionar</button>
+    </div>
+    <div class="promotion" data-category="promotions" data-name="Perfume Night Pulse" data-stars="4.5" data-price="69.90" data-original-price="89.90">
+      <div class="promotion-placeholder"></div>
+      <h3>Perfume Night Pulse</h3>
+      <p><s>R$ 89,90</s> <span class="discount">R$ 69,90</span></p>
+      <div class="stars">★★★★☆</div>
+      <button class="add-to-cart" onclick="addToCart('Perfume Night Pulse (Promo)', 69.90)">Adicionar</button>
+    </div>
+  </div>
+  <div class="modal" id="productModal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal()">×</span>
+      <div class="placeholder"></div>
+      <h3 id="modalTitle"></h3>
+      <p id="modalPrice"></p>
+      <p id="modalStars"></p>
+      <p id="modalNotes"></p>
+      <button class="add-to-cart" id="modalAddToCart">Adicionar ao Carrinho</button>
+    </div>
+  </div>
+  <div class="cart" id="cart">
+    <h3>Carrinho</h3>
+    <div id="cartItems"></div>
+    <p>Total: R$ <span id="cartTotal">0.00</span></p>
+  </div>
+  <footer>
+    <p>© 2025 Libertino Grifes - Assinaturas Premium</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
